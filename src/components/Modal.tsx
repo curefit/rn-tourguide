@@ -9,6 +9,7 @@ import {
   StyleSheet,
   View,
   ViewStyle,
+  TouchableHighlight,
 } from 'react-native'
 import { BorderRadiusObject, IStep, Labels, ValueXY } from '../types'
 import styles, { MARGIN } from './style'
@@ -318,20 +319,22 @@ export class Modal extends React.Component<ModalProps, State> {
     return (
       <View
         style={[StyleSheet.absoluteFill, { backgroundColor: 'transparent' }]}
-        pointerEvents='box-none'
       >
-        <View
+        <TouchableHighlight
           style={styles.container}
           onLayout={this.handleLayoutChange}
-          pointerEvents='box-none'
+          onPress={this.props.isLastStep ? this.handleStop : this.handleNext}
+          underlayColor={'transparent'}
         >
-          {contentVisible && (
-            <>
-              {this.renderMask()}
-              {this.renderTooltip()}
-            </>
-          )}
-        </View>
+          <>
+            {contentVisible && (
+              <>
+                {this.renderMask()}
+                {this.renderTooltip()}
+              </>
+            )}
+          </>
+        </TouchableHighlight>
       </View>
     )
   }
